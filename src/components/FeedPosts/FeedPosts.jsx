@@ -140,9 +140,9 @@ const FeedPosts = () => {
                 <Image 
                   // src='/venice1.jpg'
                   src={post?.image?.url}
-                  objectFit={'cover'}
+                  // objectFit={'cover'}
                   w={'full'}
-                  objectPosition={'center center'}
+                  // objectPosition={'center center'}
                 />
               </AspectRatio>
               <Box w={'full'} mt={2} spacing={3} color={'white'}>
