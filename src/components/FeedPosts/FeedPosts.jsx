@@ -136,7 +136,7 @@ const FeedPosts = () => {
            {!isLoading && posts?.slice(0,9).map((post) => (
             <Card key={post?.id} minW={{base: '300', sm: '400px'}} maxW={{base: '300px', sm: '400px'}} bg={'#1a1a1a'} p={0}>
             <CardBody p={2}>
-              <AspectRatio maxW={'full'} ratio={6/3} as={RouterLink} to={`/posts:${post?.headerText}`}>
+              <AspectRatio maxW={'full'} ratio={6/3} >
                 <Image 
                   // src='/venice1.jpg'
                   src={post?.image?.url}
