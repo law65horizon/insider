@@ -142,6 +142,7 @@ const FeedPosts = () => {
                   src={post?.image?.url}
                   // objectFit={'cover'}
                   w={'full'}
+                  h={'full'}
                   // objectPosition={'center center'}
                 />
               </AspectRatio>
