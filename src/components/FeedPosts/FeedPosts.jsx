@@ -40,7 +40,7 @@ const FeedPosts = () => {
                <Box position={'relative'}> 
                 <Link to={`/posts:${bRNews[0]?.headerText}`}>
                   <Image src={bRNews[0]?.image?.url} fallbackSrc='../../../fallback-image.jpg' alt={bRNews[0]?.image?.alt} 
-                   objectFit={'cover'} w={'full'} pb={2} loading='lazy'
+                   objectFit={'cover'} w={'full'} pb={2} loading='lazy' decoding='async'
                   />
                 </Link>
                 <Link to={`/cat/${bRNews[0]?.category}`}>
