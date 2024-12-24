@@ -1,10 +1,7 @@
 import { AspectRatio, Box, Button, Card, CardBody, CardFooter, Container,Flex, Heading, Image, ListItem, OrderedList, Skeleton, Stack, Text, VStack,} from '@chakra-ui/react'
-import { data } from '../../data'
-import React, { Component, useState } from 'react'
-import LatestNews01 from '../../components/FeedPosts/LatestNews'
-import FeedPosts01 from '../../components/FeedPosts/FeedPost01'
+import React from 'react'
 import NewsList from '../../components/FeedPosts/NewsList'
-import { Link , useNavigate } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import { Link as RouterLink } from 'react-router-dom'
 import useGetBRNPosts from '../../hooks/useGetBRNPosts'
 import useGetPosts from '../../hooks/useGetPosts'
@@ -50,7 +47,7 @@ const FeedPosts = () => {
                 <Text py={2} fontWeight={'bold'} fontSize={'large'} color={'#242a56'}>Breaking News</Text>
                 {/* <Link to={`/posts:${bRNews[0]?.headerText}`}> */}
                   <Text fontWeight={'bold'} fontSize={'large'}> {bRNews[0]?.headerText} </Text>
-                <Text fontWeight={'unset'} fontSize={'small'} opacity={0.5}> {formateDate(bRNews[0]?.createdAt)}, {data[0].commentsNum} comments </Text>
+                <Text fontWeight={'unset'} fontSize={'small'} opacity={0.5}> {formateDate(bRNews[0]?.createdAt)}, {8} comments </Text>
             </Box>
             )}
             <Flex w={{sm: 'full', xl: '30%'}} flexWrap={'wrap'} flexDir={{md: 'row' ,lg: 'column'}} gap={{md: '3' ,lg: '0'}}>

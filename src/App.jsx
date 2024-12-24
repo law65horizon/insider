@@ -10,7 +10,6 @@ import { useAuthState } from "react-firebase-hooks/auth";
 import Dashboard from "./dashboard/Dashboard"
 import useAuthStore from "./store/useAuthStore"
 import Category from "./pages/NewsPage/Category"
-import Test from "./pages/AuthPage/Test"
 import CreatePost from "./dashboard/CreatePost"
 
 
@@ -20,7 +19,6 @@ function App() {
     <PageLayout>
       <Routes>
         <Route path="/" element={<HomePage/>}/>
-        <Route path="/tech" element={<Test/>}/>
         <Route path='/news' element={<NewsPage/>}/>
         <Route path="/news/pages/:nu" element={<NewsPage/>}/>
         <Route path="/:uid" element={<SinglePost/>}/>

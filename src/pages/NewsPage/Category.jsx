@@ -15,7 +15,6 @@ const Category = () => {
     const page = useLocation().pathname.split('/')
     const p = page[page.length-1]
     const pg = parseInt(p, 10)
-    // console.log(cat)
     const [currentPage, setCurrentPage] = useState(pg || 1)
     const [postsPerPage, setPostsperPage] = useState(10)
     const [category, setCategory] = useState(cat)
@@ -24,8 +23,6 @@ const Category = () => {
     const firstPostIndex = lastPostIndex - postsPerPage
     const {posts, isLoading, post_num} = useGetPostByCategory(category, currentPage, firstPostIndex, lastPostIndex)
     console.log(firstPostIndex, lastPostIndex,currentPage)
-    // console.log(cat, category)
-    // console.log(isLoading)
    return (<>
     <Container maxW={'9xl'} paddingTop={'30px'}>
         <Box display={'flex'} justifyContent={'space-between'} alignItems={'center'}>
