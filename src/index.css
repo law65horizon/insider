@@ -67,12 +67,13 @@ html {
 }
 .button {
     /* content: ver; */
-    background-color: rgba(0, 0, 255, 0.349);
+    /* background-color: rgba(0, 0, 255, 0.349); */
+    background-color: red;
     color: white;
     height: 40px;
     width: 40px;
     position: absolute;
-    opacity: 0.5;
+    opacity: 0.8;
     top: 0;
     right: 0;
     z-index: 6;
@@ -121,11 +122,12 @@ html {
     outline: none;
     font-family: 'Georgia', serif;
     line-height: 1.6;
-    color: #333;
+    color: white;
     padding: 15px 20px;
     margin-top: 8px 0;
     font-size: large;
     text-transform: capitalize;
+    background: transparent;
 }
 .heading:focus {
     border: none;

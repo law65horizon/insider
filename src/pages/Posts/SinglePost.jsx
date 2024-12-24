@@ -15,6 +15,7 @@ const SinglePost = () => {
   // console.log(uid)
   const postId = uid.split(':')
   const {posts, isLoading} = useGetSinglePost(postId[1])
+  console.log(posts[0]?.headerText)
   const le = posts.length === 0
   const post = { content :[
     {'heading': 'The good stuff'},
@@ -80,12 +81,13 @@ while(txt.includes(stl)) {
   return (
     <Flex>
       <Box w={{base: 'full', md: '70%'}} px={{base:1, md: 6}} mt={2}>
-        <Text p={2} wordBreak={'break-word'} fontWeight={'bolder'} id='ono' fontSize={'x-large'}>Viewers praise 'intense' unscripted James McAvoy thriller that's just landed on Netflix</Text>
+        {/* <Text p={2} wordBreak={'break-word'} fontWeight={'bolder'} id='ono' fontSize={'x-large'}>Viewers praise 'intense' unscripted James McAvoy thriller that's just landed on Netflix</Text> */}
+        <Text p={2} wordBreak={'break-word'} fontWeight={'bolder'} id='ono' fontSize={'x-large'}> {posts[0]?.headerText} </Text>
         <Text p={2} wordBreak={'break-word'}>New research has revealed that 63% of men have limite or no knowledge about the virus</Text>
 
         {/* post content */}
 
-        {/* {!isLoading && posts[0]?.content.map((element) => (
+        {!isLoading && posts[0]?.content.map((element) => (
           <Box>
             {Object.keys(element)[0] === 'img' 
               ? <Image src={element.img.url} p={2} objectFit={'cover'} borderRadius={'13px'} w={'full'} /> 
@@ -118,8 +120,10 @@ while(txt.includes(stl)) {
             </Skeleton>
           </VStack>
         : null
-        } */}
-        { post.content.map((element) => (
+        }
+
+
+        {/* { post.content.map((element) => (
           <Box>
             
             {Object.keys(element)[0] === 'img' 
@@ -147,7 +151,7 @@ while(txt.includes(stl)) {
               </Box>
             }
           </Box>
-        ))}
+        ))} */}
 
       </Box>
       <Box py={3} gap={3} w={'30%'} display={{base: 'none', lg: 'block'}} >      

@@ -31,7 +31,7 @@ import { useLocation } from 'react-router-dom';
 import { firestore, storage } from "../FireBase/FireBase";
 import { getDownloadURL, ref, uploadString } from "firebase/storage";
 import { FieldValue, addDoc, collection,arrayUnion, updateDoc, Timestamp, doc, getDoc } from 'firebase/firestore';
-import $ from 'jquery'
+
 
 const CreatePost = () => {
 	const showToast = useShowToast()
@@ -47,14 +47,12 @@ const CreatePost = () => {
 	const [selected, setSelected] = useState()
 	const [selectedElement, setSelectedElement] = useState()
 	const {selectedFile, setSelectedFile, handleImageChange} = usePreviewImg()
-	let img_src = selectedFile
-	const [content, setContent] = useState({})
 	const [ds, setds] = useState(false)
 	const [alts, set_alts] = useState()
 	const [res, setRes] = useState([])
 	const {isOpen, onOpen, onClose} = useDisclosure()
 	const ho = res
-	console.log(res)
+	console.log(cat)
 	var jo = selectedFile
 	// console.log(selected)
 
@@ -82,7 +80,7 @@ const CreatePost = () => {
  
 	try {
 		let spanEles = document.querySelectorAll('.post-link')
-		console.log(spanEles)
+		// console.log(spanEles)
 	    for(let i = 0; i< spanEles.length; i++) {
 		spanEles[i].addEventListener('selectstart', () => {
 			setLInk(spanEles[i].dataset.placeholder)
@@ -96,9 +94,7 @@ const CreatePost = () => {
 
 	const buttons = document.querySelectorAll('.button')
 	buttons.forEach((button) => {
-		// console.log(button)
 		button.disabled = isVerified
-		// button.display = isVerified? 'none': 'block'
 	})
 
     useEffect(() => {
@@ -148,6 +144,10 @@ const CreatePost = () => {
 	}, [selectedFile])
 	const handleVerifyContent = async () => {
 		// paragraph
+		if(!navigator.onLine) {
+			showToast('Error', 'client is offline', 'error')
+			return
+		}
 		if(confirm('Note: to undo this you\'ll need to refresh the page and thus lose all progress. Click ok to verify all ')) {
 			res.filter(( key => Object.keys(key)[0] === 'text')).map((text) => {
 				// console.log('s')
@@ -192,6 +192,10 @@ const CreatePost = () => {
 	}
 
 	const handlePostCreation = async() => {	
+		if(!navigator.onLine) {
+			showToast('Error', 'client is offline', 'error')
+			return
+		}
 		try {
 			await handleCreatePost(caption, cat, res)
 			// onClose()
@@ -215,12 +219,8 @@ const CreatePost = () => {
 		// console.log(res)
 	}
 	const deleteHeadContent = (id) => {
-		// console.log(id)
-		// console.log(res)
 		const updateContent = res.filter(item => item.heading !== id)
-		// console.log(updateContent)
 		setRes(updateContent)
-		// console.log(res)
 	}
 	const deleteImgContent = (id) => {
 		const updateContent = res.filter(item => item.img !== id)
@@ -504,18 +504,18 @@ const CreatePost = () => {
   return (<>
     <Box w={'full'} >
      <Container maxW='5xl'  bg={'#1a1a1a'} borderRadius={'15px'} color={'white'} my={10} py={5}>
-	   <Flex color={'white'}>
-          <Button color={'white'} bg={'black'} mx={2} onClick={handleImg}> Add Image </Button>
-          <Button color={'white'} bg={'black'} mx={2} onClick={handleHeading}> Add Heading </Button>
-          <Button color={'white'} bg={'black'} mx={2} onClick={handleText}> Add Paragraph </Button>
-          <Button color={'white'} bg={'black'} mx={2} onClick={getSelection}> Link </Button>
-          <Button color={'white'} bg={isLinked? 'blue': 'black'} mx={2} onClick={() => setIsLinked(!isLinked)}> X </Button>
+	   <Flex color={'white'} w={'full'} flexWrap={'wrap'} gap={2}>
+          <Button color={'white'} bg={'black'} w={{base: 'calc(48% - 0.5rem)' , md: 'unset'}} onClick={handleImg}> Add Image </Button>
+		  <Button color={'white'} bg={'black'} w={{base: 'calc(52% - 0.5rem)' , md: 'unset'}} onClick={handleText}> Add Paragraph </Button>
+          <Button color={'white'} bg={'black'} w={{base: 'calc(35%)' , md: 'unset'}} onClick={handleHeading}> Add Heading </Button>
+          <Button color={'white'} bg={'black'} w={{base: 'calc(35%)' , md: 'unset'}} onClick={getSelection}> Link </Button>
+          <Button color={'white'} bg={isLinked? 'blue': 'black'} onClick={() => setIsLinked(!isLinked)}> X </Button>
        </Flex>
 	   <Box pb={6} cursor={'text'}>
 		   <Input type='text' w={'100%'} my={3} placeholder='Enter heading' value={caption} onChange={(e) => setCaption(e.target.value)}
 		    _placeholder={{color: 'white', fontWeight: "600", fontSize:'20'}}
 		   />
-	       {/* <Input type='text' w={'50%'} placeholder='Enter category' value={cat} onChange={(e) => setCat(e.target.value)} _placeholder={{color: 'black', fontWeight: "600", fontSize:'20'}}/> */}
+	       <Input type='text' w={{base: 'full', md: '500px'}} placeholder='Enter category' value={cat} onChange={(e) => setCat(e.target.value.toLocaleLowerCase())} _placeholder={{color: 'white', fontWeight: "600", fontSize:'20'}}/>
 		   <Modal isOpen={isOpen} onClose={onClose} >
 			 <ModalOverlay />
 			 <ModalContent maxW={'400px'} >
@@ -547,13 +547,15 @@ export default CreatePost
 function useCreatePost() {
 	const showToast = useShowToast()
 	const [isLoading, setIsLoading] = useState(false)
+	const [success, setSuccess] = useState(false)
 	// const authUser = useAuthStore((state) => state.user) 
 	const createPost = usePostStore(state => state.createPost)
 	const {pathname} = useLocation()
+	console.log(success)
 
 	const handleCreatePost = async( caption, cat, res ) => {
 		if(isLoading) return;
-		// if(!cat) throw new Error('Set post category')
+		if(!cat) throw new Error('Set post category')
 		if(!caption) throw new Error('Set post heading')
 		if(res.length == 0) throw new Error('please write content')
 		setIsLoading(true)
@@ -577,15 +579,20 @@ function useCreatePost() {
 			const postDocRef = await addDoc(collection(firestore,'posts'), newPost)
 
 			const imageRef = res.filter(item => item.hasOwnProperty('img'))[0].img
-			await updateDoc(postDocRef, {image: imageRef}, {counter: count})
+			await updateDoc(postDocRef, {image: imageRef, counter: count})
 			newPost.image = imageRef
-			// showToast('Succes','Post created successfully', 'succes')
-			createPost({...newPost,id: postDocRef.id})
+			console.log('diosio')
+			setSuccess(true)
+			console.log(success)
+			// createPost({...newPost,id: postDocRef.id})
+			showToast('success', 'success', 'success')
 		} catch (error) {
 			showToast('Error', error.message, 'error')
 			console.log(error)
 		}finally {
+			console.log(success)
 			setIsLoading(false)
+			location.reload()
 		}
 	}
 	return {isLoading, handleCreatePost}

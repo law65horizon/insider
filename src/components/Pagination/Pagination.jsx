@@ -9,6 +9,7 @@ const Pagination = ({totalPosts, postsPerPage, currentPage, setCurrentPage, setD
     const navigate = useNavigate()
     let pages = Math.ceil(totalPosts/postsPerPage)
     const setPagination = totalPosts > 14 ? true : false
+    console.log(setPagination)
     const [pg, setPg] = useState([])
     useEffect(() => {
         if(currentPage === 1) {
@@ -55,15 +56,17 @@ const Pagination = ({totalPosts, postsPerPage, currentPage, setCurrentPage, setD
 
   return (
     <Box>
+      { setPagination &&
         <Flex justifyContent={'center'}>
             <button className='button_page' disabled={currentPage <= 1}  onClick={() => navigatePage('dec')}><ArrowLeftIcon /></button>
             <Flex>
-                {setPagination  && pg.map((p) => (<>
+                {pg.map((p) => (<>
                     <Link className='button_pag' to={`/${dir}/pages/${p}`} key={p} onClick={() => set(p)}> {p} </Link>
                </> ))}
             </Flex>
             <button className='button_page' disabled={currentPage >= pages-1} onClick={() => navigatePage('inc')}><ArrowRightIcon /></button>
         </Flex>
+      }
     </Box>
   )
 }

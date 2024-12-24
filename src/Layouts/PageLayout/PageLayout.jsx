@@ -1,4 +1,4 @@
-import { Box, Button, Container, Flex, Image, Link, Spinner, Text, VStack,  } from '@chakra-ui/react'
+import { Box, Button, Container, Flex, Heading, Image, Link, Spinner, Text, VStack,  } from '@chakra-ui/react'
 import { Link as RouterLink } from 'react-router-dom'
 import React, { useState } from 'react'
 import SideBar from '../../components/SideBar/SideBar'
@@ -26,10 +26,10 @@ const PageLayout = ({children}) => {
   const items = [
     [
       ['news', '/news'],
-      ['Uk news,', '../cat/uk_news'],
-      ['US news,', '../cat/us_news'],
-      ['World news', '../cat/world_news'],
-      ['Wierd news', '../cat/weird_news']
+      ['tech', '/cat/tech'],
+      ['gaming', '../cat/gaming'],
+      ['anime', '../cat/anime'],
+      ['lifestyle', '../cat/lifestyle']
     ],
     [
       ['Entertainment', '/news'],
@@ -66,14 +66,18 @@ const PageLayout = ({children}) => {
          <Link as={RouterLink} onClick={() => setHorizontalNav(false)} to={'/tech'} py={2}>Tech</Link>
          <Link as={RouterLink} onClick={() => setHorizontalNav(false)} to={'/categories'} py={2}>Categories</Link>
         </Flex> */}
-        <Flex flexDir={'column'} h={'100vh'} color={'white'} bg={'black'} p={3} w={'80%'} >
-         <Link as={RouterLink} onClick={() => setHorizontalNav(false)} to={'/'} py={2}>Insider</Link>
-         {items.map((item) => {
-         <p>dod</p>
-         })}
+        <Flex flexDir={'column'} h={'100vh'} textTransform={'uppercase'} color={'white'} bg={'black'} p={3} w={'80%'} >
+          <Link as={RouterLink} onClick={() => setHorizontalNav(false)} to={'/'} py={2}>
+            <Heading>Insider</Heading>
+          </Link>
+          <Box pl={3} display={'flex'} flexDir={'column'} fontWeight={700} fontSize={'20'}>
+            {items[0].map((item) => (
+              <Link as={RouterLink} to={item[1]} onClick={() => setHorizontalNav(false)}> {item[0]} </Link>
+            ))}
+          </Box>
         </Flex>
       </Box>
-      <Button fontWeight={800} color={'white'} onClick={() => setHorizontalNav(false)}>X</Button>
+      <Button fontWeight={800} bg={'transparent'} color={'white'} onClick={() => setHorizontalNav(false)}>X</Button>
     </Flex>
   )
   // console.log(isTabletDevice, 8)
@@ -105,7 +109,7 @@ const PageLayout = ({children}) => {
             ) 
             : (
               <Flex textTransform={'uppercase'} fontWeight={'bold'} color={'white'}>
-                <Button cursor={'pointer'} bg={'unset'} onClick={() => setHorizontalNav(true)}><RxHamburgerMenu color='white' size={30}/></Button> 
+                <Button cursor={'pointer'}  bg={'unset'} onClick={() => setHorizontalNav(true)}><RxHamburgerMenu color='white' size={30}/></Button> 
                 <Link as={RouterLink} to={'/'} p={2}>Insider</Link>
                 <Flex justifyContent={'flex-end'} w={'full'}>
                   <Link as={RouterLink} to={'/forums'} p={2}>Forums</Link>

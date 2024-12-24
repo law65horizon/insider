@@ -47,7 +47,7 @@ const FeedPosts = () => {
     {'img': 'odojioe3o'},
     {'text': 'jdo099dj'}
   ]
-  // console.log(posts[1])
+  console.log(bRNews)
 
 
   
@@ -70,13 +70,15 @@ const FeedPosts = () => {
               <Box w={{md: 'full', xl: '69%'}}  cursor={'pointer'} as={RouterLink}>
                <Box position={'relative'}> 
                 <Link to={`/posts:${bRNews[0]?.headerText}`}>
-                  <Image src={bRNews[0]?.image?.url} fallbackSrc='../../../fallback-image.jpg' alt={bRNews[0]?.image?.alt} objectFit={'cover'} w={'full'} pb={2}/>
+                  <Image src={bRNews[0]?.image?.url} fallbackSrc='../../../fallback-image.jpg' alt={bRNews[0]?.image?.alt} 
+                   objectFit={'cover'} w={'full'} pb={2} loading='lazy'
+                  />
                 </Link>
                 <Link to={`/cat/${bRNews[0]?.category}`}>
                   <Button background={'#242a56'} position={'absolute'} bottom={'8px'} p={2} borderRadius={'unset'} color={'white'} w={'160px'} textTransform={'uppercase'}>{bRNews[0]?.category}</Button>
                 </Link>
                </Box>
-                <Text py={2} fontWeight={'bold'} fontSize={'large'} color={'red'}>Breaking News</Text>
+                <Text py={2} fontWeight={'bold'} fontSize={'large'} color={'#242a56'}>Breaking News</Text>
                 {/* <Link to={`/posts:${bRNews[0]?.headerText}`}> */}
                   <Text fontWeight={'bold'} fontSize={'large'}> {bRNews[0]?.headerText} </Text>
                 <Text fontWeight={'unset'} fontSize={'small'} opacity={0.5}> {formateDate(bRNews[0]?.createdAt)}, {data[0].commentsNum} comments </Text>
@@ -97,7 +99,7 @@ const FeedPosts = () => {
                <VStack key={post?.id} w={{sm: 'full', md: '48%', lg: 'full'}} cursor={'pointer'} fontWeight={'bold'} fontSize={'larger'} pb={2} >
                 <Box position={'relative'}>
                  <Link to={`/posts:${post?.headerText}`}>
-                    <Image src={post?.image?.url} alt={post?.image?.alt} objectFit={'cover'} w={'full'} />
+                    <Image src={post?.image?.url} alt={post?.image?.alt} objectFit={'cover'} w={'full'} loading='lazy'/>
                  </Link>
                  <Link to={`/cat/${post?.category}`}>
                     <Button background={'#242a56'} position={'absolute'} bottom={'0px'} p={1} borderRadius={'unset'} color={'white'} w={'160px'} textTransform={'uppercase'}>{post?.category}</Button>
@@ -143,6 +145,7 @@ const FeedPosts = () => {
                   src={post?.image?.url}
                   objectFit={'cover'}
                   w={'full'}
+                  loading='lazy'
                   objectPosition={'center center'}
                 />
               </AspectRatio>
