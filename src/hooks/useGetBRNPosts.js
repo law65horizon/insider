@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import usePostStore from '../store/postStore'
 import useShowToast from './useShowToast'
 // import useUserProfileStore from '../store/userProfileStore'
-import { collection, getDocs, limit, query, where } from 'firebase/firestore'
+import { collection, getDocs, limit, orderBy, query, where } from 'firebase/firestore'
 import { firestore } from '../FireBase/FireBase'
 
 const useGetBRNPosts = () => {
@@ -21,7 +21,7 @@ const useGetBRNPosts = () => {
           setbRNews([])
         
           try {
-              const q = query(collection(firestore, 'posts'),where('relevant', '==', true), limit(3))
+              const q = query(collection(firestore, 'posts'), orderBy('createdAt', 'desc'),  where('relevant', '==', true), limit(3))
               const querySnapShot = await getDocs(q)
               const posts = []
               querySnapShot.forEach((doc) => {
