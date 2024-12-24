@@ -21,7 +21,7 @@ const useGetBRNPosts = () => {
           setbRNews([])
         
           try {
-              const q = query(collection(firestore, 'posts'),where('relevant', '==', true))
+              const q = query(collection(firestore, 'posts'),where('relevant', '==', true), limit(3))
               const querySnapShot = await getDocs(q)
               const posts = []
               querySnapShot.forEach((doc) => {

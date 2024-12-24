@@ -11,48 +11,17 @@ import useGetPosts from '../../hooks/useGetPosts'
 import FeedPost from './FeedPost'
 import useFormateDate from '../../hooks/useFormateDate'
 
-// import './index.css'
-
-// class MyErrorBoundary extends Component {
-//   constructor(props) {
-//     super(props);
-//     this.state = {hasError: false}
-//   }
-//   static getDerivedStateFromError(error) {
-//     return {hasError: true}
-//   }
-//   componentDidCatch(error, info) {
-//     console.error('Error caught:', error)
-//     console.error('Error info:', info)
-//   }
-//   render () {
-//     if(this.state.hasError) {
-//       return <p>sosojd</p>
-//     }
-//     return this.props.children
-//   }
-// }
 
 
 const FeedPosts = () => {
-  const navigate = useNavigate()
   const {posts, isLoading} = useGetPosts(10)
   const {bRNews, error, isLoadingDoc} = useGetBRNPosts()
-  const [isOnline, setIsOnline] = useState(navigator.onLine)
   const {formateDate} = useFormateDate()
   const le = bRNews <= 0
-  const content = [
-    {'text': 'dodooeome'},
-    {'img': './resize.webp'},
-    {'img': 'odojioe3o'},
-    {'text': 'jdo099dj'}
-  ]
   console.log(bRNews)
 
 
   
-// console.log(navigator.onLine)
-  // const imgValues = content.filter(item => item.hasOwnProperty('img'))[0].img
   return (<>
       <Container maxW={'8xl'} color={'white'}>
         <Box w={'full'} py={4}>
